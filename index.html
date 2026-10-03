@@ -80,23 +80,23 @@
 
         /* LOGO HEADER */
 		.logo-img {
-		    width: 100%;             /* Se adapta al tamaño de su contenedor */
-		    max-width: 700px;       /* Tamaño para TELÉFONO (sube o baja este valor) */
+		    width: 100%;
+		    max-width: 140px;       /* Tamaño controlado para teléfono */
 		    height: auto;
 		    object-fit: contain;
 		    display: block;
 		    mix-blend-mode: multiply;
 		    transition: transform 0.3s ease;
 		}
-
+		
 		.logo-img:hover {
 		    transform: scale(1.05);
 		}
-
+		
 		/* Tamaño para pantallas grandes / computadora */
 		@media (min-width: 768px) {
 		    .logo-img {
-		        max-width: 250px;   /* Tamaño para COMPUTADORA */
+		        max-width: 200px;   /* Tamaño controlado para computadora (sube o baja este número a tu gusto) */
 		    }
 		}
 
