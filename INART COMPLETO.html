@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INART | Academia & Galería de Arte</title>
+    
+    <!-- Google Fonts: Playfair Display + Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================
+           1. PALETA DE COLORES EDITORIAL & PIGMENTOS
+           ========================================== */
+        :root {
+            --bg-canvas: #FFFFFF;
+            --bg-subtle: #FAFAFA;
+            --text-primary: #1F2421;
+            --text-secondary: #626868;
+            
+            /* Pigmentos de Acento */
+            --pigment-blue: #2A52BE;      /* Azul Ultramar */
+            --pigment-yellow: #F4C430;    /* Amarillo Azafrán */
+            --pigment-coral: #E05A47;     /* Rojo Coral */
+            --pigment-teal: #008080;      /* Turquesa Profundo */
+            --pigment-sand: #E6D7C3;      /* Arena Tono Madera */
+            
+            --border-fine: rgba(0, 0, 0, 0.08);
+            --transition-art: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-canvas);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Cursor Artístico Personalizado */
+        .art-cursor {
+            width: 20px;
+            height: 20px;
+            border: 1px solid var(--pigment-blue);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.15s ease, background 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        /* ==========================================
+           2. HEADER MINIMALISTA & LOGO CORREGIDO
+           ========================================== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 7%;
+            height: 90px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-fine);
+        }
+
+        .logo-img-wrapper {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            height: 100%;
+        }
+
+        /* LOGO HEADER */
+        .logo-img {
+            height: 240px;
+            width: auto;
+            object-fit: contain;
+            display: block;
+            mix-blend-mode: multiply;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: var(--transition-art);
+        }
+
+        nav a:hover {
+            color: var(--pigment-blue);
+        }
+
+        /* ==========================================
+           3. HERO EDITORIAL ASIMÉTRICO
+           ========================================== */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            align-items: center;
+            padding: 150px 7% 60px 7%;
+            position: relative;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(48px, 6vw, 82px);
+            font-weight: 400;
+            line-height: 1.05;
+            margin-bottom: 30px;
+            letter-spacing: -1px;
+        }
+
+        .hero-title em {
+            font-style: italic;
+            color: var(--pigment-blue);
+            position: relative;
+        }
+
+        .hero-title em::after {
+            content: '';
+            position: absolute;
+            bottom: 8px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background-color: rgba(244, 196, 48, 0.3);
+            z-index: -1;
+        }
+
+        .hero-description {
+            font-size: 15px;
+            color: var(--text-secondary);
+            max-width: 460px;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .btn-editorial {
+            display: inline-flex;
+            align-items: center;
+            gap: 20px;
+            padding: 18px 36px;
+            border: 1px solid var(--text-primary);
+            background: transparent;
+            color: var(--text-primary);
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: var(--transition-art);
+            cursor: pointer;
+        }
+
+        .btn-editorial:hover {
+            background: var(--pigment-blue);
+            border-color: var(--pigment-blue);
+            color: #FFFFFF;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(42, 82, 190, 0.15);
+        }
+
+        .hero-gallery-frame {
+            position: relative;
+            height: 520px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-image-holder {
+            width: 80%;
+            height: 90%;
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-fine);
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.03);
+        }
+
+        .main-image-holder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-art);
+        }
+
+        .floating-accent-box {
+            position: absolute;
+            bottom: -20px;
+            left: -20px;
+            background: #FFFFFF;
+            padding: 25px;
+            border: 1px solid var(--border-fine);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            max-width: 220px;
+        }
+
+        .floating-accent-box span {
+            font-size: 9px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--pigment-coral);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* ==========================================
+           4. FILOSOFÍA ACADÉMICA
+           ========================================== */
+        .section-padding {
+            padding: 120px 7%;
+        }
+
+        .manifesto-grid {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        .section-label {
+            font-size: 10px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--pigment-teal);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .manifesto-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            line-height: 1.3;
+            font-weight: 400;
+            border-left: 2px solid var(--pigment-yellow);
+            padding-left: 30px;
+        }
+
+        /* ==========================================
+           5. CATÁLOGO / CARRUSEL DINÁMICO
+           ========================================== */
+        .catalog-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .catalog-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            font-weight: 400;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: none;
+            border: none;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding-bottom: 5px;
+            border-bottom: 2px solid transparent;
+            transition: var(--transition-art);
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--pigment-blue);
+        }
+
+        .carousel-container {
+            overflow: hidden;
+            position: relative;
+            padding: 10px 0 40px 0;
+        }
+
+        .carousel-track {
+            display: flex;
+            gap: 40px;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .art-card {
+            min-width: 340px;
+            background: var(--bg-canvas);
+            border: 1px solid var(--border-fine);
+            padding: 20px;
+            transition: var(--transition-art);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .art-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.06);
+            border-color: rgba(0,0,0,0.15);
+        }
+
+        .card-image-wrapper {
+            width: 100%;
+            height: 380px;
+            background: var(--bg-subtle);
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .card-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-art);
+        }
+
+        .art-card:hover .card-image-wrapper img {
+            transform: scale(1.05);
+        }
+
+        .card-tag {
+            font-size: 9px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--pigment-blue);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 400;
+            margin-bottom: 6px;
+        }
+
+        .card-price {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .card-accent-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--pigment-coral);
+            transition: var(--transition-art);
+        }
+
+        .art-card:hover .card-accent-bar {
+            width: 100%;
+        }
+
+        .controls-wrapper {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .nav-arrow {
+            width: 50px;
+            height: 50px;
+            border: 1px solid var(--border-fine);
+            background: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-art);
+            color: var(--text-primary);
+        }
+
+        .nav-arrow:hover {
+            border-color: var(--pigment-blue);
+            color: var(--pigment-blue);
+            transform: scale(1.05);
+        }
+
+        /* ==========================================
+           6. POP-UP / VISTA AMPLIADA
+           ========================================== */
+        .art-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition-art);
+        }
+
+        .art-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-inner {
+            width: 90%;
+            max-width: 1000px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            background: #FFFFFF;
+            padding: 50px;
+            border: 1px solid var(--border-fine);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.08);
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: var(--transition-art);
+        }
+
+        .close-btn:hover {
+            color: var(--pigment-coral);
+        }
+
+        .modal-image-holder {
+            width: 100%;
+            height: 400px;
+            background: var(--bg-subtle);
+            overflow: hidden;
+        }
+
+        .modal-image-holder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .modal-details h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .modal-details .modal-price {
+            font-size: 20px;
+            color: var(--pigment-blue);
+            margin-bottom: 25px;
+        }
+
+        .modal-details p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 35px;
+            font-weight: 300;
+        }
+
+        /* ==========================================
+           7. FOOTER & CONTACTO
+           ========================================== */
+        footer {
+            background: var(--bg-subtle);
+            padding: 100px 7% 40px 7%;
+            border-top: 1px solid var(--border-fine);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 80px;
+        }
+
+        .footer-logo-wrapper {
+            display: block;
+            margin-bottom: 0;
+        }
+
+        .footer-logo-img {
+            height: 120px !important;
+            width: auto !important;
+            max-height: none !important;
+            max-width: none !important;
+            object-fit: contain;
+            display: block;
+            mix-blend-mode: multiply;
+            margin-bottom: -30px !important; 
+        }
+
+        .footer-text {
+            font-size: 13px;
+            color: var(--text-secondary);
+            max-width: 320px;
+            font-weight: 300;
+            margin-top: 0;
+        }
+
+        .footer-heading {
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--pigment-teal);
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .footer-info-list {
+            list-style: none;
+        }
+
+        .footer-info-list li {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            font-weight: 300;
+        }
+
+        .footer-info-list a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: var(--transition-art);
+        }
+
+        .footer-info-list a:hover {
+            color: var(--pigment-blue);
+        }
+
+        .copyright-bar {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid var(--border-fine);
+            font-size: 11px;
+            color: var(--text-secondary);
+            letter-spacing: 2px;
+        }
+		
+		/* ==========================================
+           8. CONVIVIOS Y EVENTOS EN INART
+           ========================================== */
+        .eventos-section {
+            background-color: var(--bg-canvas);
+            border-top: 1px solid var(--border-fine);
+        }
+
+        .eventos-grid {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 80px;
+    align-items: center; /* Alinea verticalmente el texto de la derecha con la imagen */
+}
+
+        .eventos-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(32px, 4vw, 44px);
+            font-weight: 400;
+            line-height: 1.2;
+        }
+
+        .eventos-lista {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .evento-card {
+            border-left: 2px solid var(--pigment-yellow);
+            padding-left: 30px;
+            transition: var(--transition-art);
+        }
+
+        .evento-card:hover {
+            border-left-color: var(--pigment-blue);
+            transform: translateX(8px);
+        }
+
+        .evento-card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 400;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .evento-card-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 300;
+            margin-bottom: 16px;
+            max-width: 540px;
+        }
+
+        .evento-card-info {
+            display: flex;
+            gap: 25px;
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--pigment-teal);
+            font-weight: 600;
+        }
+		
+		/* Cuadro contenedor de la imagen */
+.eventos-image-frame {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  margin-top: 35px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-fine);
+  overflow: hidden;
+}
+
+.eventos-image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition-art);
+  filter: grayscale(15%) contrast(95%); /* Efecto editorial suave */
+}
+
+.eventos-image-frame:hover img {
+  transform: scale(1.04);
+  filter: grayscale(0%) contrast(100%);
+}
+
+/* Etiqueta flotante dorada/coral en la esquina de la foto */
+.image-accent-tag {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: var(--bg-canvas);
+  padding: 8px 16px;
+  border-top: 1px solid var(--border-fine);
+  border-left: 1px solid var(--border-fine);
+}
+
+.image-accent-tag span {
+  font-size: 8px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--pigment-coral);
+  font-weight: 600;
+}
+		
+/* Indicador visual en las tarjetas de que son clicleables */
+.evento-card {
+  cursor: pointer;
+}
+
+.btn-reserva-tag {
+  color: var(--pigment-blue);
+  font-weight: 600;
+  transition: var(--transition-art);
+}
+
+.evento-card:hover .btn-reserva-tag {
+  letter-spacing: 2px;
+}
+
+/* Estilo del botón verde de WhatsApp integrado con el tema editorial */
+.btn-whatsapp {
+  background: #25D366 !important;
+  border-color: #25D366 !important;
+  color: #FFFFFF !important;
+  font-weight: 600;
+}
+
+.btn-whatsapp:hover {
+  background: #1EBE57 !important;
+  border-color: #1EBE57 !important;
+  box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3) !important;
+}
+
+.modal-reserva-inner {
+  grid-template-columns: 1fr !important;
+  max-width: 550px !important;
+  text-align: center;
+}
+
+        /* Responsivo para móviles */
+        @media (max-width: 900px) {
+            header {
+                padding: 10px 5%;
+                height: 70px;
+            }
+            .logo-img {
+                height: 40px;
+            }
+            .hero {
+                padding-top: 120px;
+            }
+            .hero, .manifesto-grid, .modal-inner, .footer-content {
+                grid-template-columns: 1fr;
+            }
+            .hero-gallery-frame { display: none; }
+			
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cursor de seguidor -->
+    <div class="art-cursor" id="cursor"></div>
+
+    <!-- NAVEGACIÓN -->
+    <header>
+        <a href="#" class="logo-img-wrapper">
+            <img src="webbueno.png" alt="INART Logo Header" class="logo-img">
+        </a>
+        <nav>
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#filosofia">Nosotros</a></li>
+                <li><a href="#catalogo">Catálogo</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="inicio" class="hero">
+        <div>
+            <span class="section-label">Galería</span>
+            <h1 class="hero-title">El arte que <em>habita</em> en ti.</h1>
+            <p class="hero-description">
+                Piezas de autor e intervenciones en madera de cedro creadas por la artista Ana Liska. Una manifestación de diseño, estética y sensibilidad.
+            </p>
+            <a href="#catalogo" class="btn-editorial">Explorar Obras &rarr;</a>
+        </div>
+
+        <div class="hero-gallery-frame">
+            <div class="main-image-holder">
+                <img id="heroImg" src="1.jpeg" alt="Obra de Arte INART">
+            </div>
+            <div class="floating-accent-box">
+                <span>Arte & Convivios</span>
+                <p style="font-family: 'Playfair Display', serif; font-size: 16px;">Intervención de un lienzo y un porta celular de cedro por la artista Ana Liska.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FILOSOFÍA Y ACADEMIA -->
+    <section id="filosofia" class="section-padding" style="background: var(--bg-subtle);">
+        <div class="manifesto-grid">
+            <div>
+                <span class="section-label">Manifiesto</span>
+                <h2 style="font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 400;">Espacio de Creación</h2>
+            </div>
+            <div>
+                <blockquote class="manifesto-quote">
+                    "El arte no es solo aquello que vemos en un lienzo; es la voz silenciosa que nos conecta con lo más profundo de nuestro ser."
+                </blockquote>
+                <p style="margin-top: 30px; color: var(--text-secondary); font-size: 14px; font-weight: 300;">
+                    En INART, cada pieza nace con el propósito de ser más que un producto: es una obra que respira, inspira y transforma. Un recordatorio de que la creatividad puede habitar en lo cotidiano y convertirse en un puente hacia nuestro interior.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATÁLOGO INTERACTIVO CON CARRUSEL -->
+    <section id="catalogo" class="section-padding">
+        <div class="catalog-header">
+            <div>
+                <span class="section-label">Colección Actual</span>
+                <h2 class="catalog-title">Catálogo de Piezas</h2>
+            </div>
+            <div class="filter-group">
+                <button class="filter-btn active" onclick="filterCatalog('all', event)">Todas</button>
+                <button class="filter-btn" onclick="filterCatalog('escritorio', event)">Escritorio</button>
+				<button class="filter-btn" onclick="filterCatalog('agendas', event)">Agendas</button>
+                <button class="filter-btn" onclick="filterCatalog('mesa', event)">Mesa & Bar</button>
+                <button class="filter-btn" onclick="filterCatalog('cajas', event)">Cajas</button>
+                <button class="filter-btn" onclick="filterCatalog('arte', event)">Arte & Intervención</button>
+            </div>
+        </div>
+
+        <div class="carousel-container">
+            <div class="carousel-track" id="track">
+                
+                <!-- ESCRITORIO -->
+                <div class="art-card" data-category="escritorio" onclick="openArtModal('Porta Celular Cedro', 'Q 120.00 - Q 150.00', 'Porta celular de cedro intervenido con láser, creado por la artista visual Ana Liska.*Es posible imprimir el logo o el nombre de la empresa..', 'cedro1.jpeg')">
+                    <div class="card-image-wrapper">
+                        <img src="cedro1.jpeg" alt="Porta Celular Cedro">
+                    </div>
+                    <div class="card-tag">Escritorio</div>
+                    <h3 class="card-title">Porta Celular Cedro - Q120.00 , Q 150.00</h3>
+                    <div class="card-price">Porta celular de cedro intervenido con láser, creado por la artista visual Ana Liska.
+						<br>*Es posible imprimir el logo o el nombre de la empresa.</div>
+                    <div class="card-accent-bar"></div>
+                </div>
+
+                <div class="art-card" data-category="escritorio" onclick="openArtModal('Porta Celular Corian', 'Q 230.00', 'Soporte para celular elaborado en material Corian, intervenido por la artista visual Ana Liska. Consulta para encargos.', 'cedro2.jpeg')">
+                    <div class="card-image-wrapper">
+                        <img src="cedro2.jpeg" alt="Porta Celular Corian">
+                    </div>
+                    <div class="card-tag">Escritorio</div>
+                    <h3 class="card-title">Porta Celular Corian - Q230</h3>
+                    <div class="card-price">Soporte para celular elaborado en material Corian, intervenido por la artista visual Ana Liska.
+						<br>*Consulta para encargos.</div>
+                    <div class="card-accent-bar"></div>
+                </div>
+
+                <div class="art-card" data-category="escritorio" onclick="openArtModal('Porta Celular MDF', 'Q 35.00', 'Portacelular de MDF para personalizar, ideal para actividades escolares o empresariales.*Consulta sobre combos disponibles para estos grupos.', '2.jpeg')">
+                    <div class="card-image-wrapper">
+                        <img src="2.jpeg" alt="Porta Celular MDF">
+                    </div>
+                    <div class="card-tag">Escritorio</div>
+                    <h3 class="card-title">Porta Celular MDF - Q.35</h3>
+                    <div class="card-price">Portacelular de MDF para personalizar, ideal para actividades escolares o empresariales.
+						*Consulta sobre combos disponibles para estos grupos.</div>
+                    <div class="card-accent-bar"></div>
+                </div>
+
+                <div class="art-card" data-category="escritorio" onclick="openArtModal('Porta Tarjetas', 'Q 95.00', '1. Soporte de escritorio para tarjetas de presentación sin porta lapiceros. 2. Soporte de escritorio para tarjetas de presentación que incluye porta lapiceros.', '3.jpeg')">
+                    <div class="card-image-wrapper">
+                        <img src="3.jpeg" alt="Porta Tarjetas">
+                    </div>
+                    <div class="card-tag">Escritorio</div>
+                    <h3 class="card-title">Porta Tarjetas - Q95</h3>
+                    <div class="card-price">1. Soporte de escritorio para tarjetas de presentación sin porta lapiceros. 
+						<br>2. Soporte de escritorio para tarjetas de presentación que incluye porta lapiceros.</div>
+                    <div class="card-accent-bar"></div>
+                </div>
+
+                <!-- ESCRITORIO (AGREGADO 1/1) -->
+                <div class="art-card" data-category="escritorio" onclick="openArtModal('Bocina Cedro', 'Q 145.00', 'Amplificador de sonido de cedro (bocina) ideal para escritorio o mesa de noche.', '4.jpeg')">
+                    <div class="card-image-wrapper">
+                        <img src="4.jpeg" alt="Bocina Cedro">
+                    </div>
+                    <div class="card-tag">Escritorio</div>
+                    <h3 class="card-title">Bocina Cedro - Q145</h3>
+                    <div class="card-price">Amplificador de sonido de cedro (bocina) ideal para escritorio o mesa de noche.</div>
+                    <div class="card-accent-bar"></div>
+                </div>
+				
+				<div class="art-card" data-category="agendas" onclick="openArtModal('Agenda Organizador', 'Q 250.00', 'Descubre una agenda excepcional que fusiona creatividad e inspiración. Obsequia a tus colegas y clientes un organizador que no solo les ayude a planificar, sino que también los motive con las obras y reflexiones de la talentosa artista visual Ana Liska', '555.jpeg')">
+                    <div class="card-image-wrapper">
+                        <img src="555.jpeg" alt="Agenda Organizador">
+                    </div>
+                    <div class="card-tag">Agendas</div>
+                    <h3 class="card-title">Agenda organizador - Q250</h3>
+                    <div class="card-price">Descubre una agenda excepcional que fusiona creatividad e inspiración. Obsequia a tus colegas y clientes un organizador que no solo les ayude a planificar, sino que también los motive con las obras y reflexiones de la talentosa artista visual Ana Liska.</div>
+                    <div class="card-accent-bar"></div>
+                </div>
+
+                <!-- MESA & BAR -->
+                <div class="art-card" data-category="mesa" onclick="openArtModal('Porta vasos corian', 'Q 275.00', 'Porta vasos de Corian con base de madera, diseñados por la talentosa artista visual Ana Liska. *Set de 4: Q275, *Set de 6: Q375', '6.jpeg')">
+                    <div class="card-image-wrapper">
+                        <img src="6.jpeg" alt="Porta vasos corian">
+                    </div>
+                    <div class="card-tag">Mesa & Bar</div>
+                    <h3 class="card-title">Porta vasos corian - Q275</h3>
+                    <div class="card-price">Porta vasos de Corian con base de madera, diseñados por la talentosa artista visual Ana Liska.
+						<br>*Set de 4: Q275  
+						<br>*Set de 6: Q375</div>
+                    <div class="card-accent-bar" style="background: var(--pigment-yellow);"></div>
+                </div>
+
+                <div class="art-card" data-category="mesa" onclick="openArtModal('Vaso tipo Yeti', 'Q 175.00', 'Vaso tipo termo Yeti intervenido con láser por la artista visual Ana Liska.', '7.jpeg')">
+                    <div class="card-image-wrapper">
+                        <img src="7.jpeg" alt="Vaso tipo Yeti">
+                    </div>
+                    <div class="card-tag">Mesa & Bar</div>
+                    <h3 class="card-title">Vaso tipo Yeti - Q175</h3>
+                    <div class="card-price">Vaso tipo termo Yeti intervenido con láser por la artista visual Ana Liska.</div>
+                    <div class="card-accent-bar" style="background: var(--pigment-yellow);"></div>
+                </div>
+
+                <!-- MESA & BAR (AGREGADOS 5/5) -->
+                <div class="art-card" data-category="mesa" onclick="openArtModal('Tequileros', 'Q 350.00', 'Azafate de Cedro y Juego de Tequileros. *Precios separados: Azafate: Q.112, Juego de seis tequileros: Q.240', '8.jpeg')">
+                    <div class="card-image-wrapper">
+                        <img src="8.jpeg" alt="Tequileros">
+                    </div>
+                    <div class="card-tag">Mesa & Bar</div>
+                    <h3 class="card-title">Tequileros - Q350</h3>
+                    <div class="card-price">Azafate de Cedro y Juego de Tequileros
+						<br>*Precios separados:
+						<br>Azafate: Q.112 
+						<br>Juego de seis tequileros: Q.240</div>
+                    <div class="card-accent-bar" style="background: var(--pigment-yellow);"></div>
+                </div>
+
+                <div class="art-card" data-category="mesa" onclick="openArtModal('Azafate Cedro', 'Q 395.00', 'Azafate de cedro intervenido con láser por la artista visual Ana Liska.', '9.jpeg')">
+                    <div class="card-image-wrapper">
+                        <img src="9.jpeg" alt="Azafate Cedro">
+                    </div>
+                    <div class="card-tag">Mesa & Bar</div>
+                    <h3 class="card-title">Azafate Cedro - Q395</h3>
+                    <div class="card-price">Azafate de cedro intervenido con láser por la artista visual Ana Liska.</div>
+                    <div class="card-accent-bar" style="background: var(--pigment-yellow);"></div>
+                </div>
+
+                <div class="art-card" data-category="mesa" onclick="openArtModal('Porta vaso circular', 'Q 160.00', 'Set de cinco posavasos de cedro, decorados con láser por la artista visual Ana Liska.', '10.jpeg')">
+                    <div class="card-image-wrapper">
+                        <img src="10.jpeg" alt="Porta vaso circular">
+                    </div>
+                    <div class="card-tag">Mesa & Bar</div>
+                    <h3 class="card-title">Porta vaso circular - Q160</h3>
+                    <div class="card-price">Set de cinco posavasos de cedro, decorados con láser por la artista visual Ana Liska.</div>
+                    <div class="card-accent-bar" style="background: var(--pigment-yellow);"></div>
+                </div>
+
+               <!-- CAJAS -->
+                <div class="art-card" data-category="cajas" onclick="openArtModal('Caja para Vino', 'Q 310.00', 'Caja de madera de cedro para el almacenamiento de vino, adornada con un grabado en láser y en colaboración con la artista visual Ana Liska.', '12.jpeg')">
+                    <div class="card-image-wrapper">
+                        <img src="12.jpeg" alt="Caja para Vino">
+                    </div>
+                    <div class="card-tag">Cajas</div>
+                    <h3 class="card-title">Caja para Vino - Q310</h3>
+                    <div class="card-price">Caja de madera de cedro para el almacenamiento de vino, adornada con un grabado en láser y en colaboración con la artista visual Ana Liska.</div>
+                    <div class="card-accent-bar" style="background: var(--pigment-teal);"></div>
+                </div>
+
+                <!-- CAJAS (AGREGADOS 2/2) -->
+                <div class="art-card" data-category="cajas" onclick="openArtModal('Caja para té', 'Q 185.00', 'Caja de MDF para té, ideal para intervenir o decorar según el gusto del cliente. *Consulta para actividades corporativas.', '133.jpeg')">
+                    <div class="card-image-wrapper">
+                        <img src="133.jpeg" alt="Caja para té">
+                    </div>
+                    <div class="card-tag">Cajas</div>
+                    <h3 class="card-title">Caja para té - Q185</h3>
+                    <div class="card-price">Caja de MDF para té, ideal para intervenir o decorar según el gusto del cliente.
+						<br>*Consulta para actividades corporativas.</div>
+                    <div class="card-accent-bar" style="background: var(--pigment-teal);"></div>
+                </div>
+
+                <div class="art-card" data-category="cajas" onclick="openArtModal('Caja para té cuadrada', 'Q 300.00', 'Caja cuadrada de madera de cedro para guardar té, con dimensiones de 20 x 20 cm, adornada con intervenciones láser de la artista visual Ana Liska.', '14.jpeg')">
+                    <div class="card-image-wrapper">
+                        <img src="14.jpeg" alt="Caja para té cuadrada">
+                    </div>
+                    <div class="card-tag">Cajas</div>
+                    <h3 class="card-title">Caja para té cuadrada - Q300</h3>
+                    <div class="card-price">Caja cuadrada de madera de cedro para guardar té, con dimensiones de 20 x 20 cm, adornada con intervenciones láser de la artista visual Ana Liska.</div>
+                    <div class="card-accent-bar" style="background: var(--pigment-teal);"></div>
+                </div>
+				
+				<div class="art-card" data-category="cajas" onclick="openArtModal('Caja para té rectangular', 'Q 300.00', 'Caja rectangular de tres compartimentos elaborada en madera de cedro, intervenida con láser por la artista visual Ana Liska.', '15.jpeg')">
+                    <div class="card-image-wrapper">
+                        <img src="15.jpeg" alt="Caja para té rectangular">
+                    </div>
+                    <div class="card-tag">Cajas</div>
+                    <h3 class="card-title">Caja para té retangular - Q300</h3>
+                    <div class="card-price">Caja rectangular de tres compartimentos elaborada en madera de cedro, intervenida con láser por la artista visual Ana Liska.</div>
+                    <div class="card-accent-bar" style="background: var(--pigment-teal);"></div>
+                </div>
+
+                <!-- ARTE & INTERVENCIÓN (NUEVA CATEGORÍA - 5 PRODUCTOS) -->
+                <div class="art-card" data-category="arte" onclick="openArtModal('Cerámica', 'Consulta precios', 'Diversos productos de cerámica para intervenir y personalizar.', 'foto.jpeg')">
+                    <div class="card-image-wrapper">
+                        <img src="foto.jpeg" alt="Cerámica">
+                    </div>
+                    <div class="card-tag">Arte & Intervención</div>
+                    <h3 class="card-title">Cerámica - Consulta precios</h3>
+                    <div class="card-price">Diversos productos de cerámica para intervenir y personalizar.</div>
+                    <div class="card-accent-bar" style="background: var(--pigment-coral);"></div>
+                </div>
+
+                <div class="art-card" data-category="arte" onclick="openArtModal('Canvas', 'Consulta precios', 'Canvas en diversos tamaños, listos para ser intervenidos y transformados creativamente', 'canvas.jpeg')">
+                    <div class="card-image-wrapper">
+                        <img src="canvas.jpeg" alt="Canvas">
+                    </div>
+                    <div class="card-tag">Arte & Intervención</div>
+                    <h3 class="card-title">Canvas - Consulta precios</h3>
+                    <div class="card-price">Canvas en diversos tamaños, listos para ser intervenidos y transformados creativamente</div>
+                    <div class="card-accent-bar" style="background: var(--pigment-coral);"></div>
+                </div>
+
+                <div class="art-card" data-category="arte" onclick="openArtModal('Canvas de madera', 'Consulta precios', 'Diversas piezas de madera listas para ser intervenidas y transformadas creativamente', 'madera1.jpeg')">
+                    <div class="card-image-wrapper">
+                        <img src="madera1.jpeg" alt="Canvas de madera">
+                    </div>
+                    <div class="card-tag">Arte & Intervención</div>
+                    <h3 class="card-title">Canvas de madera - Consulta precios</h3>
+                    <div class="card-price">Diversas piezas de madera listas para ser intervenidas y transformadas creativamente</div>
+                    <div class="card-accent-bar" style="background: var(--pigment-coral);"></div>
+                </div>
+
+                <div class="art-card" data-category="arte" onclick="openArtModal('Telas', 'Consulta precios', 'Diversas piezas de tela listas para ser intervenidas y transformadas creativamente', 'telas.jpeg')">
+                    <div class="card-image-wrapper">
+                        <img src="telas.jpeg" alt="Telas">
+                    </div>
+                    <div class="card-tag">Arte & Intervención</div>
+                    <h3 class="card-title">Telas - Consulta precios</h3>
+                    <div class="card-price">Diversas piezas de tela listas para ser intervenidas y transformadas creativamente
+					<br></div>
+                    <div class="card-accent-bar" style="background: var(--pigment-coral);"></div>
+                </div>
+
+                <div class="art-card" data-category="arte" onclick="openArtModal('Vidrio', 'Consulta precios', 'Diversas piezas de vidrio listas para ser intervenidas y transformadas creativamente', 'vidrio.jpeg')">
+                    <div class="card-image-wrapper">
+                        <img src="vidrio.jpeg" alt="Vidrio">
+                    </div>
+                    <div class="card-tag">Arte & Intervención</div>
+                    <h3 class="card-title">Vidrio - Consulta precios</h3>
+                    <div class="card-price">Diversas piezas de vidrio listas para ser intervenidas y transformadas creativamente</div>
+                    <div class="card-accent-bar" style="background: var(--pigment-coral);"></div>
+                </div>
+				
+				<div class="art-card" data-category="arte" onclick="openArtModal('Superficies Varias', 'Consulta precios', 'Consulta por otros materiales disponibles para intervención artística.', 'final.jpeg')">
+                    <div class="card-image-wrapper">
+                        <img src="final.jpeg" alt="Vidrio">
+                    </div>
+                    <div class="card-tag">Arte & Intervención</div>
+                    <h3 class="card-title">Superficies Varias - Consulta precios</h3>
+                    <div class="card-price">Consulta por otros materiales disponibles para intervención artística.</div>
+                    <div class="card-accent-bar" style="background: var(--pigment-coral);"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="controls-wrapper">
+            <button class="nav-arrow" onclick="slideCatalog(-1)">&larr;</button>
+            <button class="nav-arrow" onclick="slideCatalog(1)">&rarr;</button>
+        </div>
+    </section>
+	
+	
+<!-- ==========================================
+     SECCIÓN CONVIVIOS Y EVENTOS CON MODAL
+     ========================================== -->
+<section class="section-padding eventos-section">
+  <div class="eventos-grid">
+    
+    <!-- Columna Izquierda: Encabezado e Imagen -->
+    <div class="eventos-header">
+      <span class="section-label">CELEBRACIONES &amp; EXPERIENCIAS</span>
+      <h2 class="eventos-title">El escenario perfecto para tus convivios</h2>
+      
+      <div class="eventos-image-frame">
+        <img src="espacio.jpeg" alt="Convivio en InArt">
+        <div class="image-accent-tag">
+          <span>ESPACIO EXCLUSIVO</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Columna Derecha: Tarjetas Interactivas -->
+    <div class="eventos-lista">
+
+      <!-- Opción 1: Convivios Empresariales -->
+      <article class="evento-card" onclick="abrirModalReserva('Convivios de Fin de Año')">
+        <h3 class="evento-card-title">Convivios de Fin de Año</h3>
+        <p class="evento-card-desc">
+          Haz de tu convivio una experiencia memorable. Ofrecemos un espacio rodeado de arte, diseño e inspiración, ideal para brindar, compartir y celebrar junto a tu equipo.
+        </p>
+        <div class="evento-card-info">
+          <span>✨ Espacios personalizados</span>
+          <span class="btn-reserva-tag">Consultar Disponibilidad &rarr;</span>
+        </div>
+      </article>
+
+      <!-- Opción 2: Reuniones Privadas -->
+      <article class="evento-card" onclick="abrirModalReserva('Reuniones Privadas y Celebraciones Especiales')">
+        <h3 class="evento-card-title">Reuniones Privadas y Celebraciones Especiales</h3>
+        <p class="evento-card-desc">
+          Ya sea un cumpleaños, un convivio íntimo o un encuentro creativo, transformamos nuestro lugar para adaptarlo a la atmósfera y concepto de tu evento.
+        </p>
+        <div class="evento-card-info">
+          <span>🍷 Cocteles y experiencias</span>
+          <span class="btn-reserva-tag">Consultar Disponibilidad &rarr;</span>
+        </div>
+      </article>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ==========================================
+     VENTANA EMERGENTE (MODAL) PARA RESERVAR
+     ========================================== -->
+<div class="art-modal" id="modalReserva">
+  <div class="modal-inner modal-reserva-inner">
+    <span class="close-btn" onclick="cerrarModalReserva()">&times;</span>
+    
+    <div class="modal-details" style="width: 100%;">
+      <span class="section-label">RESERVA</span>
+      <h3 id="modalTituloEvento">Consulta de Disponibilidad</h3>
+      <p style="margin-bottom: 25px;">
+        ¿Deseas verificar si la fecha de tu evento está disponible? Te atenderemos directamente por WhatsApp para coordinar todos los detalles de tu evento.
+      </p>
+      
+      <!-- Botón de WhatsApp -->
+      <a id="btnWhatsappModal" href="#" target="_blank" class="btn-editorial btn-whatsapp">
+        <span>CONSULTAR POR WHATSAPP</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle;">
+          <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+    <!-- POP-UP INTERACTIVO -->
+    <div class="art-modal" id="artModal">
+        <div class="modal-inner">
+            <span class="close-btn" onclick="closeArtModal()">&times;</span>
+            <div class="modal-image-holder">
+                <img id="modalImg" src="" alt="Detalle de Pieza">
+            </div>
+            <div class="modal-details">
+                <span class="section-label">Detalle del Producto</span>
+                <h3 id="modalTitle">Título del Producto</h3>
+                <div class="modal-price" id="modalPrice">Q 0.00</div>
+                <p id="modalDesc">Descripción completa de la obra.</p>
+                <a id="modalWaLink" href="#" target="_blank" class="btn-editorial" style="background: var(--text-primary); color: #FFF;">Consultar Disponibilidad</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER / CONTACTO -->
+    <footer id="contacto">
+        <div class="footer-content">
+            <div>
+                <div class="footer-logo-wrapper">
+                    <img src="webbueno.png" alt="INART Logo Footer" class="footer-logo-img">
+                </div>
+                <p class="footer-text">El arte abre caminos hacia la expresión, la colaboración y la sanación, convirtiéndose en una herramienta valiosa para construir vínculos más sólidos dentro de las organizaciones.</p>
+            </div>
+            <div>
+                <div class="footer-heading">Ubicación & Contacto</div>
+                <ul class="footer-info-list">
+                    <li>Lirios 2, Oficina 4, Torre C</li>
+                    <li>Ciudad Cayalá, Guatemala</li>
+                    <li>WhatsApp: +502 5413 5267</li>
+                </ul>
+            </div>
+            <div>
+                <div class="footer-heading">Galería Digital</div>
+                <ul class="footer-info-list">
+                    <li><a href="https://instagram.com/inartgt" target="_blank">Instagram / @inartgt</a></li>
+                    <li><a href="https://wa.me/50254135267" target="_blank">Atención Personalizada</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright-bar">
+            &copy; 2026 INART. TODOS LOS DERECHOS RESERVADOS.
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Seguidor de cursor
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Carrusel
+        let pos = 0;
+        const track = document.getElementById('track');
+        const cardWidth = 380;
+
+        function slideCatalog(dir) {
+            const visibleCards = Array.from(track.querySelectorAll('.art-card')).filter(card => card.style.display !== 'none');
+            if (visibleCards.length === 0) return;
+
+            const maxPos = Math.max(0, (visibleCards.length - 2) * cardWidth);
+            
+            pos += dir * cardWidth;
+            if (pos < 0) pos = 0;
+            if (pos > maxPos) pos = maxPos;
+            
+            track.style.transform = `translateX(-${pos}px)`;
+        }
+
+        // Filtro de Categorías
+        function filterCatalog(category, evt) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            if (evt) {
+                evt.target.classList.add('active');
+            }
+
+            document.querySelectorAll('.art-card').forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            pos = 0;
+            track.style.transform = `translateX(0px)`;
+        }
+
+        // Modal / Vista Rápida
+        function openArtModal(title, price, desc, imgSrc) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalPrice').innerText = price;
+            document.getElementById('modalDesc').innerText = desc;
+            document.getElementById('modalImg').src = imgSrc;
+
+            const text = encodeURIComponent(`Hola INART, deseo solicitar más información sobre la obra: ${title}`);
+            document.getElementById('modalWaLink').href = `https://wa.me/50254135267?text=${text}`;
+
+            document.getElementById('artModal').classList.add('active');
+        }
+
+        function closeArtModal() {
+            document.getElementById('artModal').classList.remove('active');
+        }
+    </script>
+	<script>
+  // Número de WhatsApp de INART (ejemplo: 502XXXXXXXX o tu número con código de país)
+  const TELEFONO_INART = "54135267"; 
+
+  function abrirModalReserva(nombreEvento) {
+    const modal = document.getElementById('modalReserva');
+    const titulo = document.getElementById('modalTituloEvento');
+    const btnWhatsapp = document.getElementById('btnWhatsappModal');
+
+    // Cambiar título en la modal
+    titulo.innerText = nombreEvento;
+
+    // Crear mensaje personalizado para WhatsApp
+    const mensaje = encodeURIComponent(`Hola INART, quisiera consultar disponibilidad y más información para: ${nombreEvento}.`);
+    
+    // Asignar el enlace dinámico al botón
+    btnWhatsapp.href = `https://wa.me/${TELEFONO_INART}?text=${mensaje}`;
+
+    // Mostrar modal
+    modal.classList.add('active');
+  }
+
+  function cerrarModalReserva() {
+    const modal = document.getElementById('modalReserva');
+    modal.classList.remove('active');
+  }
+
+  // Cerrar la modal si el usuario hace clic fuera de ella
+  window.addEventListener('click', function(e) {
+    const modal = document.getElementById('modalReserva');
+    if (e.target === modal) {
+      cerrarModalReserva();
+    }
+  });
+</script>
+</body>
+</html>
